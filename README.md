@@ -3,6 +3,6 @@
 
 Team Members:  Justin Adie
                Bradey Lounsbury
-	       Easton Scowden 
+	           Easton Scowden 
 
 Description:   Website that shows John Conway's Game of Life
