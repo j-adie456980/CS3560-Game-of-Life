@@ -1,5 +1,6 @@
 # CS3560-Game-of-Life
 
+Team:  Python 1
 
 Team Members:  Justin Adie
                Bradey Lounsbury
@@ -7,6 +8,8 @@ Team Members:  Justin Adie
                Josh Mencsik
 
 Description:   Website that shows John Conway's Game of Life
+
+Target Platforms:  Any web browser that can efficiently run Javascript and HTML5
 
 Installation Instructions:  
     
@@ -21,3 +24,5 @@ Installation Instructions:
     
     4.) Run flask to launch a locally hosted web page by typing the following in your terminal
         >>   flask run 
+
+Github Repo Link:  https://github.com/j-adie456980/CS3560-Game-of-Life
