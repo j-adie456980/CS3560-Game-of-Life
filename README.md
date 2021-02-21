@@ -7,3 +7,17 @@ Team Members:  Justin Adie
                Josh Mencsik
 
 Description:   Website that shows John Conway's Game of Life
+
+Installation Instructions:  
+    
+    1.) Create a python virtual environment on your machine.  ( https://www.youtube.com/watch?v=APOPm01BVrk&ab_channel=CoreySchafer )
+   
+    2.) Install Flask onto your virtual environment locally.  ( https://www.youtube.com/watch?v=QjtW-wnXlUY&ab_channel=PrettyPrinted )
+   
+    3.) Link the game-of-life.py file to your global FLASK_APP environment variable with the following command 
+        >>   $env:FLASK_APP="game-of-life.py"  ( windows )
+        OR
+        >>   set FLASK_APP=game-of-life.py ( Unix based Operating Systems )
+    
+    4.) Run flask to launch a locally hosted web page by typing the following in your terminal
+        >>   flask run 
