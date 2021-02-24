@@ -21,6 +21,7 @@ Installation Instructions:
         >>   $env:FLASK_APP="game-of-life.py"  ( windows )
         OR
         >>   set FLASK_APP=game-of-life.py ( Unix based Operating Systems )
+        >>   export FLASK_APP=game-of-life.py ( Unix based Operating Systems )
     
     4.) Run flask to launch a locally hosted web page by typing the following in your terminal
         >>   flask run 
