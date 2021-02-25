@@ -25,6 +25,7 @@ const getEmptyGrid = () => {
   return grid;
 }
 
+
 const drawingLetters = (grid) => {
   //H
   for(let j = 4; j < 14; j++) grid[1][j] = true;
@@ -112,7 +113,17 @@ const drawingLetters = (grid) => {
   for(let j = 18; j < 24; j++) grid[48][j] = true;
   for(let j = 18; j < 24; j++) grid[49][j] = true;
   return grid;
-}
+} 
+
+/*
+const eraseGrid = (grid) => {
+  for(let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid.length; j++) {
+      grid[i][j] = false;
+    }
+  }
+  return grid;
+} */
 
 window.onload = () => {
   const canvas = document.getElementById('canvas');
