@@ -125,6 +125,52 @@ const eraseGrid = (grid) => {
   return grid;
 } */
 
+//Given a grid and a coordinate on that grid to check, will return a boolean value
+//that states whether the cell should live or die off in the next generation
+const determineNextGen = (grid, i, j) => {
+    if (grid[i][j]) {//alive cell to start
+      if (checkNeighbor(grid, i, j) == 2 || checkNeighbor(grid, i, j) == 3) //survives
+          return true;
+      else  
+          return false; //dies out
+    }
+    else {//dead cell to start
+      if (checkNeighbor(grid, i, j) == 3) //cell is born
+          return true;
+      else 
+          return false; //stay dead
+    }
+}
+
+//Given a grid and a coordinate on that grid, returns the number of living cells adjacent
+const checkNeighbor = (grid, i, j) => {
+    let total = 0;
+
+    if (i > 0) {//up check
+      if (j > 0) {//left check
+        if (grid[i-1][j-1]) total += 1;}//up one, left one
+      if (grid[i-1][j]) total += 1; //up one
+      if (j < grid.length) {//right check
+        if (grid[i-1][j+1]) total += 1;}//up one, right one
+    }
+
+    if (j > 0) {//left check
+      if (grid[i][j-1]) total += 1;} //left one
+    if (j < grid.length) {//right check
+      if (grid[i][j+1]) total += 1;} //right one
+
+    if (i < grid.length) {//down check
+      if (j > 0) {//left check
+        if (grid[i+1][j-1]) total += 1;} //down one, left one
+      if (grid[i+1][j]) total += 1; //down one
+      if (j < grid.length) {//right check
+        if (grid[i+1][j+1]) total += 1;} //down one, right one
+    }
+
+
+    return total;
+}
+
 window.onload = () => {
   const canvas = document.getElementById('canvas');
   const context = canvas.getContext('2d');
