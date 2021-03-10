@@ -98,15 +98,43 @@ const GetNewGrid = (grid) => {
   return newGrid;
 }
 
+var reqTimeout;
+
 const RunSimulation = (grid, context) => {
   drawGrid(grid, context);
   const newGrid = GetNewGrid(grid);
-  setTimeout(function(){requestAnimationFrame(RunSimulation(newGrid, context))}, 100);
+
+  reqTimeout = setTimeout(function(){requestAnimationFrame(RunSimulation(newGrid, context))}, 100);
 }
+
+var isStarted = 0;
+const grid = getEmptyGrid();
 
 window.onload = () => {
   const canvas = document.getElementById('canvas');
   const context = canvas.getContext('2d');
-  const grid = getEmptyGrid();
-  RunSimulation(drawingLetters(grid), context);
-}
+  
+  
+  var startStop = document.createElement('button');
+  startStop.id = 'ssButton';
+  startStop.innerHTML = 'Start/Stop';
+  startStop.style.background = '#ff0000';
+  document.body.appendChild(startStop);
+  startStop.onclick = function() {
+    if(isStarted == 0)  //initial state
+    {
+      RunSimulation(drawingLetters(grid), context);
+      isStarted = 1;
+    }
+    else if(isStarted == 1) //started state
+    {
+      clearTimeout(reqTimeout);
+      isStarted = 2;
+    }
+    else  //paused state
+    {
+      RunSimulation(grid, context);
+      isStarted = 1;
+    }
+  };
+  // startStop.onclick = function() {RunSimulation(drawingLetters(grid), context);};
