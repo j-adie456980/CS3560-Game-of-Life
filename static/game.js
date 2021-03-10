@@ -138,4 +138,3 @@ window.onload = () => {
     }
   };
   // startStop.onclick = function() {RunSimulation(drawingLetters(grid), context);};
-}
