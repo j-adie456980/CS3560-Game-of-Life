@@ -3,6 +3,7 @@ const numRowCells = 50;
 const cellLength = (gridSize/numRowCells);
 var reqTimeout;
 var isStarted = 0;
+var speed = 100;
 
 const drawGrid = (grid, contextIn) => {
   contextIn.clearRect(0, 0, gridSize, gridSize)
@@ -166,11 +167,7 @@ function RunSimulation (grid, context, speed) {
   drawGrid(grid, context);
   const newGrid = GetNewGrid(grid); 
 
-  var speedSlider = document.getElementById("speedSlider");
-  speedSlider.oninput = function() {
-    speed = 1/speedSlider.value;
-  }
-  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context))}, 10000);
+  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context, speed))}, speed);
 }
 
 
@@ -181,9 +178,17 @@ window.onload = () => {
   context.strokeStyle = "grey"; context.fillStyle = "black"; //style cell drawing
   const grid = getEmptyGrid();
 
-  var speed = 100;
   //speed slider
+  var speedSlider = document.getElementById("speedSlider");
+  var output = document.getElementById("output");
+  output.innerHTML = speedSlider.value;
 
+  speedSlider.oninput = function() {
+    speed = this.value;
+    output.innerHTML = speed;
+  }
+  
+  
   //start button
   var startStop = document.querySelector('.start-stop');
   startStop.onclick = function() {
