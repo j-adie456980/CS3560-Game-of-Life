@@ -115,7 +115,7 @@ const drawingLetters = (grid) => {
   return grid;
 } 
 
-/*
+
 const eraseGrid = (grid) => {
   for(let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid.length; j++) {
@@ -123,7 +123,7 @@ const eraseGrid = (grid) => {
     }
   }
   return grid;
-} */
+}
 
 //Given a grid and a coordinate on that grid to check, will return a boolean value
 //that states whether the cell should live or die off in the next generation
@@ -175,6 +175,8 @@ window.onload = () => {
   const context = canvas.getContext('2d');
   context.strokeStyle = "grey"; context.fillStyle = "black"; //style cell drawing
   const grid = getEmptyGrid();
+
+  //start button
   var startStop = document.querySelector('.start-stop');
   startStop.onclick = function() {
     if(isStarted == 0)  //initial state
@@ -195,5 +197,13 @@ window.onload = () => {
       isStarted = 1;
     }
   };
-  // startStop.onclick = function() {RunSimulation(drawingLetters(grid), context);};
+  
+  //clear button
+  var clearButton = document.querySelector('.clear');
+  clearButton.onclick = function() {
+    //do stuff
+    clearTimeout(reqTimeout);
+    drawGrid(eraseGrid(grid), context);
+    isStarted = 0;
+  }
 }
