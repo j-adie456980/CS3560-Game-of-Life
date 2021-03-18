@@ -162,10 +162,15 @@ const GetNewGrid = (grid) => {
   return newGrid;
 }
 
-function RunSimulation (grid, context) {
+function RunSimulation (grid, context, speed) {
   drawGrid(grid, context);
   const newGrid = GetNewGrid(grid); 
-  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context))}, 100);
+
+  var speedSlider = document.getElementById("speedSlider");
+  speedSlider.oninput = function() {
+    speed = 1/speedSlider.value;
+  }
+  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context))}, 10000);
 }
 
 
@@ -176,12 +181,15 @@ window.onload = () => {
   context.strokeStyle = "grey"; context.fillStyle = "black"; //style cell drawing
   const grid = getEmptyGrid();
 
+  var speed = 100;
+  //speed slider
+
   //start button
   var startStop = document.querySelector('.start-stop');
   startStop.onclick = function() {
     if(isStarted == 0)  //initial state
     {
-      RunSimulation(drawingLetters(grid), context);
+      RunSimulation(drawingLetters(grid), context, speed);
       isStarted = 1;
     }
     else if(isStarted == 1) //started state
@@ -192,7 +200,7 @@ window.onload = () => {
     }
     else  //paused state
     {
-      RunSimulation(grid, context);
+      RunSimulation(grid, context, speed);
       //startStop.value = "Resume";
       isStarted = 1;
     }
@@ -206,4 +214,6 @@ window.onload = () => {
     drawGrid(eraseGrid(grid), context);
     isStarted = 0;
   }
+
+  
 }
