@@ -43,16 +43,57 @@
             text-align: center;
             color: white;
         }
+        slider-text {
+            position: relative;
+            bottom: 200px;
+            left: 1125px;
+            font-family: 'Sarala';
+            font-size: 32px;
+            text-align: center;
+            color: black;
+        }
+        .slidecontainer {
+            width: 27.5%;
+        }
+        .slider {
+            position:relative;
+            left: 975px;
+            bottom: 175px;
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        .slider:hover {
+            opacity: 1;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #016F54;
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #016F54;
+            cursor: pointer;
+        }
         .btn-group-left {
             overflow: hidden;
-            position: fixed;
+            position: absolute;
             left: 5ch;
             bottom: 3ch;
             width: 100%;
         }
         .btn-group-right {
             overflow: hidden;
-            position: fixed;
+            position: absolute;
             left: 100ch;
             bottom: 3ch;
             width: 100%;
@@ -98,6 +139,10 @@
         <button class="clear">Clear</button>
     </div>
     <div class="rectangle"></div>
+    <div class="slidecontainer">
+        <slider-text>Speed:</slider-text>
+        <input type="range" min="1" max="5000" value="100" class="slider" id="speedSlider">
+    </div>
     <div class="btn-group-right">
         <button style= "padding: 0px 98px;">Grid</button>
         <button style= "padding: 0px 80px;">Upload</button>
