@@ -167,7 +167,7 @@ function RunSimulation (grid, context, speed) {
   drawGrid(grid, context);
   const newGrid = GetNewGrid(grid); 
 
-  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context, speed))}, speed);
+  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context, speed))}, (1/speed)*5000);
 }
 
 
