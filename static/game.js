@@ -3,6 +3,10 @@ const numRowCells = 50;
 const cellLength = (gridSize/numRowCells);
 var reqTimeout;
 var isStarted = 0;
+var speed = 100;
+let globalGrid;
+let globalContext;
+var startStop = document.querySelector('.start-stop');
 
 const drawGrid = (grid, contextIn) => {
   contextIn.clearRect(0, 0, gridSize, gridSize)
@@ -15,6 +19,7 @@ const drawGrid = (grid, contextIn) => {
       if (cellState) contextIn.fillRect(xPos, yPos, cellLength, cellLength) //fill cell if state is alive
     }
   }
+  globalContext = contextIn;
 }
 
 const getEmptyGrid = () => {
@@ -162,11 +167,32 @@ const GetNewGrid = (grid) => {
   return newGrid;
 }
 
-function RunSimulation (grid, context) {
+function RunSimulation (grid, context, speed) {
   drawGrid(grid, context);
-  const newGrid = GetNewGrid(grid); 
-  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context))}, 100);
+  const newGrid = globalGrid = GetNewGrid(grid); 
+  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context, speed))}, (1/speed)*5000);
 }
+
+//start button
+startStop.onclick = function() {
+  if(isStarted == 0)  //initial state
+  {
+    RunSimulation(drawingLetters(globalGrid), globalContext, speed);
+    isStarted = 1;
+  }
+  else if(isStarted == 1) //started state
+  {
+    clearTimeout(reqTimeout);
+    //startStop.value = "Pause";
+    isStarted = 2;
+  }
+  else  //paused state
+  {
+    RunSimulation(globalGrid, globalContext, speed);
+    //startStop.value = "Resume";
+    isStarted = 1;
+  }
+};
 
 
 
@@ -175,28 +201,19 @@ window.onload = () => {
   const context = canvas.getContext('2d');
   context.strokeStyle = "grey"; context.fillStyle = "black"; //style cell drawing
   const grid = getEmptyGrid();
+  drawGrid(grid, context);
+  globalGrid = grid;
+  globalContext = context;
 
-  //start button
-  var startStop = document.querySelector('.start-stop');
-  startStop.onclick = function() {
-    if(isStarted == 0)  //initial state
-    {
-      RunSimulation(drawingLetters(grid), context);
-      isStarted = 1;
-    }
-    else if(isStarted == 1) //started state
-    {
-      clearTimeout(reqTimeout);
-      //startStop.value = "Pause";
-      isStarted = 2;
-    }
-    else  //paused state
-    {
-      RunSimulation(grid, context);
-      //startStop.value = "Resume";
-      isStarted = 1;
-    }
-  };
+  //speed slider
+  var speedSlider = document.getElementById("speedSlider");
+  var output = document.getElementById("output");
+  output.innerHTML = speedSlider.value;
+
+  speedSlider.oninput = function() {
+    speed = this.value;
+    output.innerHTML = speed;
+  }
   
   //clear button
   var clearButton = document.querySelector('.clear');
@@ -206,4 +223,6 @@ window.onload = () => {
     drawGrid(eraseGrid(grid), context);
     isStarted = 0;
   }
+
+  
 }
