@@ -7,6 +7,7 @@ var speed = 100;
 let globalGrid;
 let globalContext;
 var startStop = document.querySelector('.start-stop');
+let button = document.querySelector('button');
 
 const drawGrid = (grid, contextIn) => {
   contextIn.clearRect(0, 0, gridSize, gridSize)
@@ -167,6 +168,18 @@ const GetNewGrid = (grid) => {
   return newGrid;
 }
 
+//speed slider
+var speedSlider = document.getElementById("speedSlider");
+var output = document.getElementById("output");
+output.innerHTML = speedSlider.value/500;
+
+speedSlider.onclick = function() {
+  clearTimeout(reqTimeout);
+  speed = this.value;
+  output.innerHTML = speed/500;
+  RunSimulation(globalGrid, globalContext, speed);
+}
+
 function RunSimulation (grid, context, speed) {
   drawGrid(grid, context);
   const newGrid = globalGrid = GetNewGrid(grid); 
@@ -178,21 +191,36 @@ startStop.onclick = function() {
   if(isStarted == 0)  //initial state
   {
     RunSimulation(drawingLetters(globalGrid), globalContext, speed);
+    button.style.padding = '0px 83px';
+    startStop.textContent = "Pause";
     isStarted = 1;
   }
   else if(isStarted == 1) //started state
   {
     clearTimeout(reqTimeout);
-    //startStop.value = "Pause";
+    button.style.padding = '0px 92px';
+    startStop.textContent = "Start";
     isStarted = 2;
   }
   else  //paused state
   {
     RunSimulation(globalGrid, globalContext, speed);
-    //startStop.value = "Resume";
+    button.style.padding = '0px 83px';
+    startStop.textContent = "Pause";
     isStarted = 1;
   }
 };
+
+//clear button
+var clearButton = document.querySelector('.clear');
+clearButton.onclick = function() {
+  //do stuff
+  clearTimeout(reqTimeout);
+  drawGrid(eraseGrid(globalGrid), globalContext);
+  button.style.padding = '0px 92px';
+  startStop.textContent = "Start";
+  isStarted = 0;
+}
 
 
 
@@ -204,25 +232,4 @@ window.onload = () => {
   drawGrid(grid, context);
   globalGrid = grid;
   globalContext = context;
-
-  //speed slider
-  var speedSlider = document.getElementById("speedSlider");
-  var output = document.getElementById("output");
-  output.innerHTML = speedSlider.value;
-
-  speedSlider.oninput = function() {
-    speed = this.value;
-    output.innerHTML = speed;
-  }
-  
-  //clear button
-  var clearButton = document.querySelector('.clear');
-  clearButton.onclick = function() {
-    //do stuff
-    clearTimeout(reqTimeout);
-    drawGrid(eraseGrid(grid), context);
-    isStarted = 0;
-  }
-
-  
 }
