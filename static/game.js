@@ -176,7 +176,7 @@ speedSlider.onclick = function() {
   clearTimeout(reqTimeout);
   speed = this.value;
   output.innerHTML = speed;
-  RunSimulation(globalGrid, globalContext, speed);
+  if(isStarted == 1) RunSimulation(globalGrid, globalContext, speed);
 }
 
 function RunSimulation (grid, context, speed) {
