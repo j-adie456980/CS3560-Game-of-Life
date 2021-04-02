@@ -7,6 +7,9 @@ var speed = 100;
 let globalGrid;
 let globalContext;
 var startStop = document.querySelector('.start-stop');
+var clearButton = document.querySelector('.clear');
+var speedSlider = document.getElementById("speedSlider");
+var output = document.getElementById("output");
 let button = document.querySelector('button');
 
 const drawGrid = (grid, contextIn) => {
@@ -169,14 +172,10 @@ const GetNewGrid = (grid) => {
 }
 
 //speed slider
-var speedSlider = document.getElementById("speedSlider");
-var output = document.getElementById("output");
-output.innerHTML = speedSlider.value/500;
-
 speedSlider.onclick = function() {
   clearTimeout(reqTimeout);
   speed = this.value;
-  output.innerHTML = speed/500;
+  output.innerHTML = speed;
   RunSimulation(globalGrid, globalContext, speed);
 }
 
@@ -212,7 +211,6 @@ startStop.onclick = function() {
 };
 
 //clear button
-var clearButton = document.querySelector('.clear');
 clearButton.onclick = function() {
   //do stuff
   clearTimeout(reqTimeout);
@@ -232,4 +230,5 @@ window.onload = () => {
   drawGrid(grid, context);
   globalGrid = grid;
   globalContext = context;
+  output.innerHTML = speedSlider.value;
 }
