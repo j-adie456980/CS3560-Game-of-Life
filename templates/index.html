@@ -43,6 +43,15 @@
             text-align: center;
             color: white;
         }
+        generation-text {
+            position: absolute;
+            bottom: 590px;
+            left: 1210px;
+            font-family: 'Sarala';
+            font-size: 38px;
+            text-align: center;
+            color: black;
+        }
         slider-text {
             position: relative;
             bottom: 250px;
@@ -139,6 +148,9 @@
         <button class="clear">Clear</button>
     </div>
     <div class="rectangle"></div>
+    <div>
+        <generation-text>Generation: <span id="genCount"></span></generation-text>
+    </div>
     <div class="slidecontainer">
         <input type="range" min="1" max="500" value="10" class="slider" id="speedSlider">
         <slider-text>Speed: <span id="output"></span></slider-text>
@@ -149,5 +161,4 @@
     </div>
     <script src="{{url_for('static', filename='game.js')}}"></script>
 </body>
->>>>>>> local
 </html>
