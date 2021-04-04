@@ -4,6 +4,7 @@ const cellLength = (gridSize/numRowCells);
 var reqTimeout;
 var isStarted = 0;
 var speed = 100;
+var genCount = document.getElementById("genCount");
 let globalGrid;
 let globalContext;
 var startStop = document.querySelector('.start-stop');
@@ -182,6 +183,7 @@ speedSlider.onclick = function() {
 function RunSimulation (grid, context, speed) {
   drawGrid(grid, context);
   const newGrid = globalGrid = GetNewGrid(grid); 
+  genCount.innerHTML++;
   reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context, speed))}, (1/speed)*5000);
 }
 
@@ -217,6 +219,7 @@ clearButton.onclick = function() {
   drawGrid(eraseGrid(globalGrid), globalContext);
   button.style.padding = '0px 92px';
   startStop.textContent = "Start";
+  genCount.innerHTML = 0;
   isStarted = 0;
 }
 
@@ -231,4 +234,5 @@ window.onload = () => {
   globalGrid = grid;
   globalContext = context;
   output.innerHTML = speedSlider.value;
+  genCount.innerHTML = 0;
 }
