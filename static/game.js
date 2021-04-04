@@ -4,6 +4,14 @@ const cellLength = (gridSize/numRowCells);
 var reqTimeout;
 var isStarted = 0;
 var speed = 100;
+var genCount = document.getElementById("genCount");
+let globalGrid;
+let globalContext;
+var startStop = document.querySelector('.start-stop');
+var clearButton = document.querySelector('.clear');
+var speedSlider = document.getElementById("speedSlider");
+var output = document.getElementById("output");
+let button = document.querySelector('button');
 
 const drawGrid = (grid, contextIn) => {
   contextIn.clearRect(0, 0, gridSize, gridSize)
@@ -16,6 +24,7 @@ const drawGrid = (grid, contextIn) => {
       if (cellState) contextIn.fillRect(xPos, yPos, cellLength, cellLength) //fill cell if state is alive
     }
   }
+  globalContext = contextIn;
 }
 
 const getEmptyGrid = () => {
@@ -163,11 +172,55 @@ const GetNewGrid = (grid) => {
   return newGrid;
 }
 
+//speed slider
+speedSlider.onclick = function() {
+  clearTimeout(reqTimeout);
+  speed = this.value;
+  output.innerHTML = speed;
+  if(isStarted == 1) RunSimulation(globalGrid, globalContext, speed);
+}
+
 function RunSimulation (grid, context, speed) {
   drawGrid(grid, context);
-  const newGrid = GetNewGrid(grid); 
-
+  const newGrid = globalGrid = GetNewGrid(grid); 
+  genCount.innerHTML++;
   reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context, speed))}, (1/speed)*5000);
+}
+
+//start button
+startStop.onclick = function() {
+  if(isStarted == 0)  //initial state
+  {
+    RunSimulation(drawingLetters(globalGrid), globalContext, speed);
+    button.style.padding = '0px 83px';
+    startStop.textContent = "Pause";
+    isStarted = 1;
+  }
+  else if(isStarted == 1) //started state
+  {
+    clearTimeout(reqTimeout);
+    button.style.padding = '0px 92px';
+    startStop.textContent = "Start";
+    isStarted = 2;
+  }
+  else  //paused state
+  {
+    RunSimulation(globalGrid, globalContext, speed);
+    button.style.padding = '0px 83px';
+    startStop.textContent = "Pause";
+    isStarted = 1;
+  }
+};
+
+//clear button
+clearButton.onclick = function() {
+  //do stuff
+  clearTimeout(reqTimeout);
+  drawGrid(eraseGrid(globalGrid), globalContext);
+  button.style.padding = '0px 92px';
+  startStop.textContent = "Start";
+  genCount.innerHTML = 0;
+  isStarted = 0;
 }
 
 
@@ -177,48 +230,9 @@ window.onload = () => {
   const context = canvas.getContext('2d');
   context.strokeStyle = "grey"; context.fillStyle = "black"; //style cell drawing
   const grid = getEmptyGrid();
-
-  //speed slider
-  var speedSlider = document.getElementById("speedSlider");
-  var output = document.getElementById("output");
+  drawGrid(grid, context);
+  globalGrid = grid;
+  globalContext = context;
   output.innerHTML = speedSlider.value;
-
-  speedSlider.oninput = function() {
-    speed = this.value;
-    output.innerHTML = speed;
-  }
-  
-  
-  //start button
-  var startStop = document.querySelector('.start-stop');
-  startStop.onclick = function() {
-    if(isStarted == 0)  //initial state
-    {
-      RunSimulation(drawingLetters(grid), context, speed);
-      isStarted = 1;
-    }
-    else if(isStarted == 1) //started state
-    {
-      clearTimeout(reqTimeout);
-      //startStop.value = "Pause";
-      isStarted = 2;
-    }
-    else  //paused state
-    {
-      RunSimulation(grid, context, speed);
-      //startStop.value = "Resume";
-      isStarted = 1;
-    }
-  };
-  
-  //clear button
-  var clearButton = document.querySelector('.clear');
-  clearButton.onclick = function() {
-    //do stuff
-    clearTimeout(reqTimeout);
-    drawGrid(eraseGrid(grid), context);
-    isStarted = 0;
-  }
-
-  
+  genCount.innerHTML = 0;
 }
