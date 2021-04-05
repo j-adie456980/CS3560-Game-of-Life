@@ -3,7 +3,7 @@ const numRowCells = 50;
 const cellLength = (gridSize/numRowCells);
 var reqTimeout;
 var isStarted = 0;
-var speed = 100;
+var speed = 50;
 var genCount = document.getElementById("genCount");
 let globalGrid;
 let globalContext;
@@ -173,25 +173,27 @@ const GetNewGrid = (grid) => {
 }
 
 //speed slider
-speedSlider.onclick = function() {
-  clearTimeout(reqTimeout);
+speedSlider.oninput = function() {
+  //clearTimeout(reqTimeout);
   speed = this.value;
   output.innerHTML = speed;
-  if(isStarted == 1) RunSimulation(globalGrid, globalContext, speed);
+
+  //changing mid run
+  //if(isStarted == 1) RunSimulation(globalGrid, globalContext, speed);
 }
 
-function RunSimulation (grid, context, speed) {
+function RunSimulation (grid, context) {
   drawGrid(grid, context);
   const newGrid = globalGrid = GetNewGrid(grid); 
   genCount.innerHTML++;
-  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context, speed))}, (1/speed)*5000);
+  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context))}, (2500 - 24.9 * speed));
 }
 
 //start button
 startStop.onclick = function() {
   if(isStarted == 0)  //initial state
   {
-    RunSimulation(drawingLetters(globalGrid), globalContext, speed);
+    RunSimulation(drawingLetters(globalGrid), globalContext);
     button.style.padding = '0px 83px';
     startStop.textContent = "Pause";
     isStarted = 1;
@@ -205,7 +207,7 @@ startStop.onclick = function() {
   }
   else  //paused state
   {
-    RunSimulation(globalGrid, globalContext, speed);
+    RunSimulation(globalGrid, globalContext);
     button.style.padding = '0px 83px';
     startStop.textContent = "Pause";
     isStarted = 1;
