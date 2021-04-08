@@ -18,7 +18,7 @@
             align-items: center;
             justify-content: center;
         }
-        canvas {
+        .main-canvas {
             position:absolute; 
             top:0;
             bottom:0;
@@ -35,7 +35,7 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 10;
+            z-index: 0;
             font-size: 60%;
             font-family: 'Sarala';
             font-size: 44px; 
@@ -147,13 +147,19 @@
             background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
-        .modal-content {
+        .modal-content-u {
             background-color: rgb(228, 228, 228);
             margin: 15% auto; /* 15% from the top and centered */
             border: 5px solid #016F54;
             width: 40%; /* Could be more or less, depending on screen size */
         }
-        .modal-header {
+        .modal-content-g {
+            background-color: rgb(228, 228, 228);
+            margin: 1% auto; /* 5% from the top and centered */
+            border: 5px solid #016F54;
+            width: 50%; /* Could be more or less, depending on screen size */
+        }
+        .modal-header-u, .modal-header-g{
             font-family: 'Sarala';
             font-size: 18px; 
             text-align: center;
@@ -168,9 +174,53 @@
             text-align: center;
             border: none;
             background-color: rgb(228, 228, 228);
-            border-bottom: 4px solid #016F54;;
+            border-bottom: 4px solid #016F54;
         }
-        .mini-upload-btn {
+        .user-grids-window{
+            background-color: rgb(228, 228, 228);
+            margin: 5% auto; 
+            border: 4px solid #016F54;
+            width: 90%;
+            height: 450px;
+            overflow-y: scroll;
+        }
+        .user-grid-pair{
+            margin: 3% auto;
+            width: 95%;
+            height: 350px;
+        }
+        .left-grid-container{
+            background-color: rgb(228, 228, 228);
+            float: left;
+            width: 300px;
+            height: 100%;
+        }
+        .right-grid-container{
+            background-color: rgb(228, 228, 228);
+            float: right;
+            width: 300px;
+            height: 100%;
+        }
+        .user-grid-name{
+            margin: 3% auto;
+            font-family: 'Sarala';
+            text-align: center;
+            width: 90%;
+            border-bottom: 2px solid #016F54;
+            border-top: 2px solid #016F54;
+            color: #016F54;
+        }
+        .left-grid{
+            background-color: white;
+            border: 2px solid #016F54;
+            float: left;
+        }
+        .right-grid{
+            background-color: white;
+            border: 2px solid #016F54;
+            float: right;
+        }
+        .mini-upload-btn, .mini-grids-btn{
             display: block;
             margin: 0 auto;
             margin-bottom: 5%;
@@ -185,7 +235,7 @@
             cursor: pointer;
             
         }
-        .mini-upload-btn:hover{
+        .mini-upload-btn:hover, .mini-grids-btn:hover{
             background-color: rgb(3, 92, 70);
         }
         input:focus, textarea:focus, select:focus{
@@ -197,7 +247,7 @@
     
     <h1>Conway's Game of Life</h1>
     <div id="grid-box">
-        <canvas id="canvas" height="500px" width="500px"></canvas>
+        <canvas class="main-canvas" id="canvas" height="500px" width="500px"></canvas>
     </div>
     <div class="btn-group-left">
         <button class="start-stop">Start</button>
@@ -216,12 +266,40 @@
         <button class="upload" style= "padding: 0px 80px;">Upload</button>
     </div>
     <div id="upload-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header"><h2>Name Your Grid</h2></div>
+        <div class="modal-content-u">
+            <div class="modal-header-u"><h2>Name Your Grid</h2></div>
             <input class = "text-box" type="text" id="fname" name="fname"><br><br>
             <input class = "mini-upload-btn" type="submit" value="Upload">
         </div>
-      </div>
+    </div>
+    <div id="grids-modal" class="modal">
+        <div class="modal-content-g">
+            <div class="modal-header-g"><h2>User Grids</h2></div>
+            <div class="user-grids-window">
+                <div class="user-grid-pair">
+                    <div class="left-grid-container">
+                        <h3 class="user-grid-name">Title</h3>
+                        <canvas class="left-grid" id="left-canvas" height="300px" width="300px"></canvas>
+                    </div>
+                    <div class="right-grid-container">
+                        <h3 class="user-grid-name">Title</h3>
+                        <canvas class="right-grid" id="right-canvas" height="300px" width="300px"></canvas>
+                    </div>
+                </div>
+                <div class="user-grid-pair">
+                    <div class="left-grid-container">
+                        <h3 class="user-grid-name">Title</h3>
+                        <canvas class="left-grid" id="left-canvas" height="300px" width="300px"></canvas>
+                    </div>
+                    <div class="right-grid-container">
+                        <h3 class="user-grid-name">Title</h3>
+                        <canvas class="right-grid" id="right-canvas" height="300px" width="300px"></canvas>
+                    </div>
+                </div>
+            </div>
+            <input class = "mini-grids-btn" type="submit" value="Load">
+        </div>
+    </div>
     <script src="{{url_for('static', filename='game.js')}}"></script>
 </body>
 </html>

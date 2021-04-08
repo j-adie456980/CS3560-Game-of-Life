@@ -10,10 +10,12 @@ var globalContext;
 var startStop = document.querySelector('.start-stop');
 var clearButton = document.querySelector('.clear');
 var uploadButton = document.querySelector('.upload');
+var gridsButton = document.querySelector('.grids');
 var speedSlider = document.getElementById("speedSlider");
 var output = document.getElementById("output");
 var button = document.querySelector('button');
 var uploadModal = document.getElementById("upload-modal");
+var gridsModal = document.getElementById("grids-modal");
 
 const drawGrid = (grid, contextIn) => {
   contextIn.clearRect(0, 0, gridSize, gridSize)
@@ -233,11 +235,16 @@ uploadButton.onclick = function() {
   uploadModal.style.display = "block";
 };
 
+//grids button
+//CHANGE THIS (IF THE SIMULATION IS RUNNING THIS BUTTON IS UNAVAILABLE)
+gridsButton.onclick = function() {
+  gridsModal.style.display = "block";
+};
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == uploadModal) {
-    uploadModal.style.display = "none";
-  }
+  if (event.target == uploadModal) uploadModal.style.display = "none";
+  else if (event.target == gridsModal) gridsModal.style.display = "none";
 };
 
 window.onload = () => {
