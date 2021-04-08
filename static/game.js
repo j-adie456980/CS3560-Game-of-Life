@@ -5,13 +5,15 @@ var reqTimeout;
 var isStarted = 0;
 var speed = 50;
 var genCount = document.getElementById("genCount");
-let globalGrid;
-let globalContext;
+var globalGrid;
+var globalContext;
 var startStop = document.querySelector('.start-stop');
 var clearButton = document.querySelector('.clear');
+var uploadButton = document.querySelector('.upload');
 var speedSlider = document.getElementById("speedSlider");
 var output = document.getElementById("output");
-let button = document.querySelector('button');
+var button = document.querySelector('button');
+var uploadModal = document.getElementById("upload-modal");
 
 const drawGrid = (grid, contextIn) => {
   contextIn.clearRect(0, 0, gridSize, gridSize)
@@ -186,7 +188,7 @@ function RunSimulation (grid, context) {
   drawGrid(grid, context);
   const newGrid = globalGrid = GetNewGrid(grid); 
   genCount.innerHTML++;
-  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context))}, (2500 - 24.9 * speed));
+  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context))}, (2100/speed));
 }
 
 //start button
@@ -223,9 +225,20 @@ clearButton.onclick = function() {
   startStop.textContent = "Start";
   genCount.innerHTML = 0;
   isStarted = 0;
-}
+};
 
+//upload button
+//CHANGE THIS (IF THE SIMULATION IS RUNNING THIS BUTTON IS UNAVAILABLE)
+uploadButton.onclick = function() {
+  uploadModal.style.display = "block";
+};
 
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == uploadModal) {
+    uploadModal.style.display = "none";
+  }
+};
 
 window.onload = () => {
   const canvas = document.getElementById('canvas');

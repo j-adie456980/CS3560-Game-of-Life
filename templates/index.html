@@ -46,7 +46,7 @@
         generation-text {
             position: absolute;
             bottom: 580px;
-            left: 1165px;
+            left: 1150px;
             font-family: 'Sarala';
             font-size: 38px;
             text-align: center;
@@ -135,6 +135,62 @@
             width: 8px;
             background-color: #016F54;
         }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: rgb(228, 228, 228);
+            margin: 15% auto; /* 15% from the top and centered */
+            border: 5px solid #016F54;
+            width: 40%; /* Could be more or less, depending on screen size */
+        }
+        .modal-header {
+            font-family: 'Sarala';
+            font-size: 18px; 
+            text-align: center;
+            top: 0px;
+            color: #016F54;
+        }
+        .text-box {
+            display: block;
+            margin: 0 auto;
+            font-family: 'Sarala';
+            font-size: 26px; 
+            text-align: center;
+            border: none;
+            background-color: rgb(228, 228, 228);
+            border-bottom: 4px solid #016F54;;
+        }
+        .mini-upload-btn {
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 5%;
+            font-family: 'Sarala';
+            font-size: 30px;
+            background-color: #016F54;
+            border: none;
+            color: white;
+            padding: 0px 10px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            
+        }
+        .mini-upload-btn:hover{
+            background-color: rgb(3, 92, 70);
+        }
+        input:focus, textarea:focus, select:focus{
+            outline: none;
+        }
     </style>
 </head>
 <body>
@@ -156,9 +212,16 @@
         <slider-text>Speed: <span id="output"></span></slider-text>
     </div>
     <div class="btn-group-right">
-        <button style= "padding: 0px 98px;">Grid</button>
-        <button style= "padding: 0px 80px;">Upload</button>
+        <button class="grids" style= "padding: 0px 98px;">Grids</button>
+        <button class="upload" style= "padding: 0px 80px;">Upload</button>
     </div>
+    <div id="upload-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Name Your Grid</h2></div>
+            <input class = "text-box" type="text" id="fname" name="fname"><br><br>
+            <input class = "mini-upload-btn" type="submit" value="Upload">
+        </div>
+      </div>
     <script src="{{url_for('static', filename='game.js')}}"></script>
 </body>
 </html>
