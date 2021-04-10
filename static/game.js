@@ -16,6 +16,8 @@ var output = document.getElementById("output");
 var button = document.querySelector('button');
 var uploadModal = document.getElementById("upload-modal");
 var gridsModal = document.getElementById("grids-modal");
+var uploadButtonModal = document.querySelector('.mini-upload-btn');
+var gridName;
 
 const drawGrid = (grid, contextIn) => {
   contextIn.clearRect(0, 0, gridSize, gridSize)
@@ -233,6 +235,21 @@ clearButton.onclick = function() {
 //CHANGE THIS (IF THE SIMULATION IS RUNNING THIS BUTTON IS UNAVAILABLE)
 uploadButton.onclick = function() {
   uploadModal.style.display = "block";
+  console.log(JSON.stringify(globalGrid));
+};
+
+$(function() {  // SEND DATA TO FLASK
+  $('#mini-upload').bind('click', function() {
+    $.getJSON($SCRIPT_ROOT + '/UploadGrid',  // file path
+    {userGridName: gridName, userGridState: JSON.stringify(globalGrid)}, // data being sent
+    console.log("Upload Success"));  // success message
+    return false;
+  });
+});
+
+// gets gridName
+uploadButtonModal.onclick = function(){  // how the button is called
+  gridName = document.getElementById("t-box").value;
 };
 
 //grids button
