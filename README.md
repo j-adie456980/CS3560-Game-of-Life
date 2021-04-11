@@ -2,10 +2,11 @@
 
 Team:  Python 1
 
-Team Members:  Justin Adie  
-               Bradey Lounsbury  
-	       Easton Scowden  
-               Josh Mencsik  
+Team Members:  
+		Justin Adie  
+		Bradey Lounsbury   
+		Easton Scowden  
+		Josh Mencsik  
 
 Description:   Website that shows John Conway's Game of Life
 
