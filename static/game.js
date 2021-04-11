@@ -19,6 +19,8 @@ var gridsModal = document.getElementById("grids-modal");
 var uploadButtonModal = document.querySelector('.mini-upload-btn');
 var gridName;
 
+console.log(userGrids);
+
 const drawGrid = (grid, contextIn) => {
   contextIn.clearRect(0, 0, gridSize, gridSize)
   let cellState, xPos, yPos;
