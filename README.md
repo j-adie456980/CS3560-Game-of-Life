@@ -32,3 +32,6 @@ Installation Instructions:
         >>   flask run 
 
 Github Repo Link:  https://github.com/j-adie456980/CS3560-Game-of-Life
+
+> This website is made for 1920 x 1080 resolution screens, if your screen has a different resolution, then changing  
+> then zoom should fix it.
