@@ -4,11 +4,59 @@
     <title>Title</title>
     <link href="https://fonts.googleapis.com/css?family=Sarala" rel="stylesheet">
     <style>
-        html,body {
+        html {
             overflow: hidden;
+            --background-color: lightgrey;
+            --canvas-bg: white;
+            --canvas-border: #016F54;
+            --h1-bg: #016F54;
+            --h1: white;
+            --gen-text: black;
+            --slider-text: black;
+            --slider: white;
+            --slider-thumb: #016F54;
+            --button-bg: #016F54;
+            --button: white;
+            --button-hover: #035c46;
+            --rectangle: #016F54;
+            --upload-bg: rgb(228, 228, 228);
+            --upload-border: #016F54;
+            --upload-text: #016F54;
+            --mini-upload: white;
+            --mini-upload-hover: rgb(3, 92, 70);
+            --grid-bg: rgb(228, 228, 228);
+            --grid-border: #016F54;
+            --grid-grid-bg: white;
+        }
+        .darkmode {
+            --background-color: #303030;
+            --canvas-bg: #303030;
+            --canvas-border: #00FF00;
+            --h1-bg: #00FF00;
+            --h1: black;
+            --gen-text: #00FF00;
+            --slider-text: #00FF00;
+            --slider: black;
+            --slider-thumb: #00FF00;
+            --button-bg: #00FF00;
+            --button: black;
+            --button-hover: #00CC00;
+            --rectangle: #00FF00;
+            --upload-bg: #444444;
+            --upload-border: #00FF00;
+            --upload-text: #00FF00;
+            --mini-upload: black;
+            --mini-upload-hover: #00CC00;
+            --grid-bg: #303030;
+            --grid-border: #00FF00;
+            --grid-grid-bg: black;
         }
         body {
-            background-color: lightgrey;
+            background-color: var(--background-color);
+        }
+        .container {
+            width: 100%;
+            height: auto;
         }
         #grid-box {
             width: 800px;
@@ -25,9 +73,9 @@
             right:0;
             left:0; 
             margin:auto;
-            background-color: white;
+            background-color: var(--canvas-bg);
             border-style: solid;
-            border-color: #016F54;
+            border-color: var(--canvas-border);
             border-width: 1ch;
         }
         h1 {
@@ -39,42 +87,43 @@
             font-size: 60%;
             font-family: 'Sarala';
             font-size: 44px; 
-            background-color: #016F54;
+            background-color: var(--h1-bg);
             text-align: center;
-            color: white;
+            color: var(--h1);
         }
         generation-text {
             position: absolute;
-            bottom: 580px;
-            left: 1150px;
+            top: 20%;
+            left: 75%;
             font-family: 'Sarala';
-            font-size: 38px;
+            font-size: 2.4em;
             text-align: center;
-            color: black;
+            color: var(--gen-text);
         }
         slider-text {
-            position: relative;
-            bottom: 250px;
-            left: 285%;
+            position: absolute;
+            top: 46%;
+            left: 78.5%;
             font-family: 'Sarala';
-            font-size: 32px;
+            font-size: 2.1em;
             text-align: center;
-            color: black;
+            color: var(--slider-text);
         }
         .slidecontainer {
             width: 27.5%;
         }
         .slider {
-            position:relative;
-            left: 252%;
-            bottom: 175px;
+            position: absolute;
+            left: 68%;
+            top: 54%;
             -webkit-appearance: none;
-            width: 100%;
+            width: 30vw;
             height: 10px;
             outline: none;
             opacity: 0.7;
             -webkit-transition: .2s;
             transition: opacity .2s;
+            background-color: var(--slider);
         }
         .slider:hover {
             opacity: 1;
@@ -84,61 +133,71 @@
             appearance: none;
             width: 25px;
             height: 25px;
-            background: #016F54;
+            background: var(--slider-thumb);
             cursor: pointer;
         }
         .slider::-moz-range-thumb {
             width: 25px;
             height: 25px;
-            background: #016F54;
+            background: var(--slider-thumb);
             cursor: pointer;
         }
         .btn-group-left {
             overflow: hidden;
             position: absolute;
-            left: 5ch;
-            bottom: 3ch;
+            left: 4%;
+            top: 87%;
             width: 100%;
         }
         .btn-group-right {
             overflow: hidden;
             position: absolute;
-            left: 100ch;
-            bottom: 3ch;
+            left: 51%;
+            top: 87%;
             width: 100%;
         }
         button {
             font-family: 'Sarala';
             font-size: 40px;
-            background-color: #016F54;
+            background-color: var(--button-bg);
             border: none;
-            color: white;
-            padding: 0px 92px;
+            color: var(--button);
             text-align: center;
             text-decoration: none;
             cursor: pointer;
-            margin: 4px 30px;
+            margin-left: 2.6vw;
         }
         button:focus {
             outline: none;
         }
         button:hover {
-            background-color: rgb(3, 92, 70);
+            background-color: var(--button-hover);
         }
         .rectangle {
             position: absolute;
-            top: 92.5%;
-            left: 52.2%;
-            margin-top: -50px;
-            margin-left: -50px;
+            top: 85.8%;
+            left: 49%;
             height: 90px;
             width: 8px;
-            background-color: #016F54;
+            background-color: var(--rectangle);
+        }
+        .DMButton {
+            position: absolute;
+            top: 3.9%;
+            left: 92%;
+            height: 8.5vh;
+            border-radius: 50%;
+            background-color: var(--button-bg);
+            border: none;
+            padding-top: 0.7%;
+            padding-right: 0;
+            padding-left: 0;
+            z-index: 11;
         }
         .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            z-index: 12; /* Sit on top */
             left: 0;
             top: 0;
             width: 100%; /* Full width */
@@ -148,15 +207,15 @@
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
         .modal-content-u {
-            background-color: rgb(228, 228, 228);
+            background-color: var(--upload-bg);
             margin: 15% auto; /* 15% from the top and centered */
-            border: 5px solid #016F54;
+            border: 5px solid var(--upload-border);
             width: 40%; /* Could be more or less, depending on screen size */
         }
         .modal-content-g {
-            background-color: rgb(228, 228, 228);
+            background-color: var(--upload-bg);
             margin: 1% auto; /* 5% from the top and centered */
-            border: 5px solid #016F54;
+            border: 5px solid var(--upload-border);
             width: 50%; /* Could be more or less, depending on screen size */
         }
         .modal-header-u, .modal-header-g{
@@ -164,7 +223,7 @@
             font-size: 18px; 
             text-align: center;
             top: 0px;
-            color: #016F54;
+            color: var(--upload-text);
         }
         .text-box {
             display: block;
@@ -173,13 +232,13 @@
             font-size: 26px; 
             text-align: center;
             border: none;
-            background-color: rgb(228, 228, 228);
-            border-bottom: 4px solid #016F54;
+            background-color: var(--upload-bg);
+            border-bottom: 4px solid var(--upload-border);
         }
         .user-grids-window{
-            background-color: rgb(228, 228, 228);
+            background-color: var(--grid-bg);
             margin: 5% auto; 
-            border: 4px solid #016F54;
+            border: 4px solid var(--grid-border);
             width: 90%;
             height: 450px;
             overflow-y: scroll;
@@ -190,13 +249,13 @@
             height: 350px;
         }
         .left-grid-container{
-            background-color: rgb(228, 228, 228);
+            background-color: var(--grid-bg);
             float: left;
             width: 300px;
             height: 100%;
         }
         .right-grid-container{
-            background-color: rgb(228, 228, 228);
+            background-color: var(--grid-bg);
             float: right;
             width: 300px;
             height: 100%;
@@ -206,18 +265,18 @@
             font-family: 'Sarala';
             text-align: center;
             width: 90%;
-            border-bottom: 2px solid #016F54;
-            border-top: 2px solid #016F54;
-            color: #016F54;
+            border-bottom: 2px solid var(--grid-border);
+            border-top: 2px solid var(--grid-border);
+            color: var(--grid-border);
         }
         .left-grid{
-            background-color: white;
-            border: 2px solid #016F54;
+            background-color: var(--grid-grid-bg);
+            border: 2px solid var(--grid-border);
             float: left;
         }
         .right-grid{
-            background-color: white;
-            border: 2px solid #016F54;
+            background-color: var(--grid-grid-bg);
+            border: 2px solid var(--grid-border);
             float: right;
         }
         .mini-upload-btn, .mini-grids-btn{
@@ -226,9 +285,9 @@
             margin-bottom: 5%;
             font-family: 'Sarala';
             font-size: 30px;
-            background-color: #016F54;
+            background-color: var(--upload-border);
             border: none;
-            color: white;
+            color: var(--mini-upload);
             padding: 0px 10px;
             text-align: center;
             text-decoration: none;
@@ -236,7 +295,7 @@
             
         }
         .mini-upload-btn:hover, .mini-grids-btn:hover{
-            background-color: rgb(3, 92, 70);
+            background-color: var(--mini-upload-hover);
         }
         input:focus, textarea:focus, select:focus{
             outline: none;
@@ -244,67 +303,71 @@
     </style>
 </head>
 <body>
-    
-    <h1>Conway's Game of Life</h1>
-    <div id="grid-box">
-        <canvas class="main-canvas" id="canvas" height="500px" width="500px"></canvas>
-    </div>
-    <div class="btn-group-left">
-        <button class="start-stop">Start</button>
-        <button class="clear">Clear</button>
-    </div>
-    <div class="rectangle"></div>
-    <div>
-        <generation-text>Generation: <span id="genCount"></span></generation-text>
-    </div>
-    <div class="slidecontainer">
-        <input type="range" min="1" max="100" value="50" class="slider" id="speedSlider">
-        <slider-text>Speed: <span id="output"></span></slider-text>
-    </div>
-    <div class="btn-group-right">
-        <button class="grids" style= "padding: 0px 98px;">Grids</button>
-        <button class="upload" style= "padding: 0px 80px;">Upload</button>
-    </div>
-    <div id="upload-modal" class="modal">
-        <div class="modal-content-u">
-            <div class="modal-header-u"><h2>Name Your Grid</h2></div>
-            <form method="POST">
-                <input class = "text-box" type="text" id="t-box" name="t-box"><br><br>
-                <input class = "mini-upload-btn" id='mini-upload' type="submit" name="mini-upload" value="Upload">
-            </form> 
+    <div class="container">
+        <h1>Conway's Game of Life</h1>
+        <div id="grid-box">
+            <canvas class="main-canvas" id="canvas" height="500px" width="500px"></canvas>
         </div>
-    </div>
-    <div id="grids-modal" class="modal">
-        <div class="modal-content-g">
-            <div class="modal-header-g"><h2>User Grids</h2></div>
-            <div class="user-grids-window">
-                <div class="user-grid-pair">
-                    <div class="left-grid-container">
-                        <h3 class="user-grid-name">Title</h3>
-                        <canvas class="left-grid" id="left-canvas" height="300px" width="300px"></canvas>
-                    </div>
-                    <div class="right-grid-container">
-                        <h3 class="user-grid-name">Title</h3>
-                        <canvas class="right-grid" id="right-canvas" height="300px" width="300px"></canvas>
-                    </div>
-                </div>
-                <div class="user-grid-pair">
-                    <div class="left-grid-container">
-                        <h3 class="user-grid-name">Title</h3>
-                        <canvas class="left-grid" id="left-canvas" height="300px" width="300px"></canvas>
-                    </div>
-                    <div class="right-grid-container">
-                        <h3 class="user-grid-name">Title</h3>
-                        <canvas class="right-grid" id="right-canvas" height="300px" width="300px"></canvas>
-                    </div>
-                </div>
+        <button class="DMButton">
+            <img src="{{url_for('static', filename='images/crescent2.png')}}" width="50vw" height="50vh" margin="0.5vh">
+        </button>
+        <div class="btn-group-left">
+            <button class="start-stop" style="padding: 0px 92px">Start</button>
+            <button class="clear" style="padding: 0px 92px">Clear</button>
+        </div>
+        <div class="rectangle"></div>
+        <div>
+            <generation-text>Generation: <span id="genCount"></span></generation-text>
+        </div>
+        <div class="slidecontainer">
+            <input type="range" min="1" max="100" value="50" class="slider" id="speedSlider">
+            <slider-text>Speed: <span id="output"></span></slider-text>
+        </div>
+        <div class="btn-group-right">
+            <button class="grids" style= "padding: 0px 98px;">Grids</button>
+            <button class="upload" style= "padding: 0px 80px;">Upload</button>
+        </div>
+        <div id="upload-modal" class="modal">
+            <div class="modal-content-u">
+                <div class="modal-header-u"><h2>Name Your Grid</h2></div>
+                <form method="POST">
+                    <input class = "text-box" type="text" id="t-box" name="t-box"><br><br>
+                    <input class = "mini-upload-btn" id='mini-upload' type="submit" name="mini-upload" value="Upload">
+                </form> 
             </div>
-            <input class = "mini-grids-btn" type="submit" value="Load">
         </div>
+        <div id="grids-modal" class="modal">
+            <div class="modal-content-g">
+                <div class="modal-header-g"><h2>User Grids</h2></div>
+                <div class="user-grids-window">
+                    <div class="user-grid-pair">
+                        <div class="left-grid-container">
+                            <h3 class="user-grid-name">Title</h3>
+                            <canvas class="left-grid" id="left-canvas" height="300px" width="300px"></canvas>
+                        </div>
+                        <div class="right-grid-container">
+                            <h3 class="user-grid-name">Title</h3>
+                            <canvas class="right-grid" id="right-canvas" height="300px" width="300px"></canvas>
+                        </div>
+                    </div>
+                    <div class="user-grid-pair">
+                        <div class="left-grid-container">
+                            <h3 class="user-grid-name">Title</h3>
+                            <canvas class="left-grid" id="left-canvas" height="300px" width="300px"></canvas>
+                        </div>
+                        <div class="right-grid-container">
+                            <h3 class="user-grid-name">Title</h3>
+                            <canvas class="right-grid" id="right-canvas" height="300px" width="300px"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <input class = "mini-grids-btn" type="submit" value="Load">
+            </div>
+        </div>
+        <script>var userGrids = JSON.parse('{{ userGrids | tojson | safe}}');</script>
+        <script type=text/javascript>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="{{url_for('static', filename='game.js')}}"></script>
     </div>
-    <script>var userGrids = JSON.parse('{{ userGrids | tojson | safe}}');</script>
-    <script type=text/javascript>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="{{url_for('static', filename='game.js')}}"></script>
 </body>
 </html>
