@@ -10,6 +10,10 @@
         body {
             background-color: lightgrey;
         }
+        .container {
+            width: 100%;
+            height: auto;
+        }
         #grid-box {
             width: 800px;
             height: 600px;
@@ -36,7 +40,7 @@
             left: 0;
             right: 0;
             z-index: 10;
-            font-size: 60%;
+            font-size: 2.6em;
             font-family: 'Sarala';
             font-size: 44px; 
             background-color: #016F54;
@@ -45,19 +49,19 @@
         }
         generation-text {
             position: absolute;
-            bottom: 580px;
-            left: 1165px;
+            top: 20%;
+            left: 75%;
             font-family: 'Sarala';
-            font-size: 38px;
+            font-size: 2.4em;
             text-align: center;
             color: black;
         }
         slider-text {
-            position: relative;
-            bottom: 250px;
-            left: 285%;
+            position: absolute;
+            top: 46%;
+            left: 78.5%;
             font-family: 'Sarala';
-            font-size: 32px;
+            font-size: 2.1em;
             text-align: center;
             color: black;
         }
@@ -65,11 +69,11 @@
             width: 27.5%;
         }
         .slider {
-            position:relative;
-            left: 252%;
-            bottom: 175px;
+            position: absolute;
+            left: 68%;
+            top: 54%;
             -webkit-appearance: none;
-            width: 100%;
+            width: 30vw;
             height: 10px;
             outline: none;
             opacity: 0.7;
@@ -96,15 +100,15 @@
         .btn-group-left {
             overflow: hidden;
             position: absolute;
-            left: 5ch;
-            bottom: 3ch;
+            left: 4%;
+            top: 87%;
             width: 100%;
         }
         .btn-group-right {
             overflow: hidden;
             position: absolute;
-            left: 100ch;
-            bottom: 3ch;
+            left: 51%;
+            top: 87%;
             width: 100%;
         }
         button {
@@ -113,11 +117,10 @@
             background-color: #016F54;
             border: none;
             color: white;
-            padding: 0px 92px;
             text-align: center;
             text-decoration: none;
             cursor: pointer;
-            margin: 4px 30px;
+            margin-left: 2.6vw;
         }
         button:focus {
             outline: none;
@@ -127,17 +130,15 @@
         }
         .rectangle {
             position: absolute;
-            top: 92.5%;
-            left: 52.2%;
-            margin-top: -50px;
-            margin-left: -50px;
+            top: 85.8%;
+            left: 49%;
             height: 90px;
             width: 8px;
             background-color: #016F54;
         }
         .DMButton {
             position: absolute;
-            top: 3.6%;
+            top: 3.9%;
             left: 92%;
             height: 8.5vh;
             border-radius: 50%;
@@ -151,30 +152,31 @@
     </style>
 </head>
 <body>
-    
-    <h1>Conway's Game of Life</h1>
-    <div id="grid-box">
-        <canvas id="canvas" height="500px" width="500px"></canvas>
+    <div class="container">
+        <h1>Conway's Game of Life</h1>
+        <div id="grid-box">
+            <canvas id="canvas" height="500px" width="500px"></canvas>
+        </div>
+        <button class="DMButton">
+            <img src="{{url_for('static', filename='images/crescent2.png')}}" width="50vw" height="50vh" margin="0.5vh">
+        </button>
+        <div class="btn-group-left">
+            <button class="start-stop" style="padding: 0px 92px">Start</button>
+            <button class="clear" style="padding: 0px 92px">Clear</button>
+        </div>
+        <div class="rectangle"></div>
+        <div>
+            <generation-text>Generation: <span id="genCount"></span></generation-text>
+        </div>
+        <div class="slidecontainer">
+            <input type="range" min="1" max="100" value="50" class="slider" id="speedSlider">
+            <slider-text>Speed: <span id="output"></span></slider-text>
+        </div>
+        <div class="btn-group-right">
+            <button style= "padding: 0px 98px;">Grid</button>
+            <button style= "padding: 0px 80px;">Upload</button>
+        </div>
+        <script src="{{url_for('static', filename='game.js')}}"></script>
     </div>
-    <button class="DMButton">
-        <img src="{{url_for('static', filename='images/crescent2.png')}}" width="50vw" height="50vh" margin="0.5vh">
-    </button>
-    <div class="btn-group-left">
-        <button class="start-stop">Start</button>
-        <button class="clear">Clear</button>
-    </div>
-    <div class="rectangle"></div>
-    <div>
-        <generation-text>Generation: <span id="genCount"></span></generation-text>
-    </div>
-    <div class="slidecontainer">
-        <input type="range" min="1" max="100" value="50" class="slider" id="speedSlider">
-        <slider-text>Speed: <span id="output"></span></slider-text>
-    </div>
-    <div class="btn-group-right">
-        <button style= "padding: 0px 98px;">Grid</button>
-        <button style= "padding: 0px 80px;">Upload</button>
-    </div>
-    <script src="{{url_for('static', filename='game.js')}}"></script>
 </body>
 </html>
