@@ -7,6 +7,8 @@ var speed = 50;
 var genCount = document.getElementById("genCount");
 var globalGrid;
 var globalContext;
+var DMButton = document.querySelector('.DMButton');
+var dark = false;
 var startStop = document.querySelector('.start-stop');
 var clearButton = document.querySelector('.clear');
 var uploadButton = document.querySelector('.upload');
@@ -202,21 +204,21 @@ startStop.onclick = function() {
   if(isStarted == 0)  //initial state
   {
     RunSimulation(drawingLetters(globalGrid), globalContext);
-    button.style.padding = '0px 83px';
+    startStop.style.padding = '0px 83px';
     startStop.textContent = "Pause";
     isStarted = 1;
   }
   else if(isStarted == 1) //started state
   {
     clearTimeout(reqTimeout);
-    button.style.padding = '0px 92px';
+    startStop.style.padding = '0px 92px';
     startStop.textContent = "Start";
     isStarted = 2;
   }
   else  //paused state
   {
     RunSimulation(globalGrid, globalContext);
-    button.style.padding = '0px 83px';
+    startStop.style.padding = '0px 83px';
     startStop.textContent = "Pause";
     isStarted = 1;
   }
@@ -224,13 +226,21 @@ startStop.onclick = function() {
 
 //clear button
 clearButton.onclick = function() {
-  //do stuff
   clearTimeout(reqTimeout);
   drawGrid(eraseGrid(globalGrid), globalContext);
-  button.style.padding = '0px 92px';
+  startStop.style.padding = '0px 92px';
   startStop.textContent = "Start";
   genCount.innerHTML = 0;
   isStarted = 0;
+};
+
+//dark mode button
+DMButton.onclick = function() {
+  dark = !(dark);
+  var element = document.body;
+  element.classList.toggle("darkmode");
+  if(dark){globalContext.strokeStyle = "black"; globalContext.fillStyle = "#00FF00";}
+  else{globalContext.strokeStyle = "grey"; globalContext.fillStyle = "black";}
 };
 
 //upload button
