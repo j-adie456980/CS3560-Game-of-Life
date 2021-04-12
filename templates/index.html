@@ -135,6 +135,19 @@
             width: 8px;
             background-color: #016F54;
         }
+        .DMButton {
+            position: absolute;
+            top: 3.6%;
+            left: 92%;
+            height: 8.5vh;
+            border-radius: 50%;
+            background-color: #016F54;
+            border: none;
+            padding-top: 0.7%;
+            padding-right: 0;
+            padding-left: 0;
+            z-index: 11;
+        }
     </style>
 </head>
 <body>
@@ -143,6 +156,9 @@
     <div id="grid-box">
         <canvas id="canvas" height="500px" width="500px"></canvas>
     </div>
+    <button class="DMButton">
+        <img src="{{url_for('static', filename='images/crescent2.png')}}" width="50vw" height="50vh" margin="0.5vh">
+    </button>
     <div class="btn-group-left">
         <button class="start-stop">Start</button>
         <button class="clear">Clear</button>
