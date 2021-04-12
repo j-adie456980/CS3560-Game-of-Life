@@ -186,7 +186,7 @@ function RunSimulation (grid, context) {
   drawGrid(grid, context);
   const newGrid = globalGrid = GetNewGrid(grid); 
   genCount.innerHTML++;
-  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context))}, (2500 - 24.9 * speed));
+  reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context))}, (2100/speed));
 }
 
 //start button
@@ -194,21 +194,21 @@ startStop.onclick = function() {
   if(isStarted == 0)  //initial state
   {
     RunSimulation(drawingLetters(globalGrid), globalContext);
-    button.style.padding = '0px 83px';
+    startStop.style.padding = '0px 83px';
     startStop.textContent = "Pause";
     isStarted = 1;
   }
   else if(isStarted == 1) //started state
   {
     clearTimeout(reqTimeout);
-    button.style.padding = '0px 92px';
+    startStop.style.padding = '0px 92px';
     startStop.textContent = "Start";
     isStarted = 2;
   }
   else  //paused state
   {
     RunSimulation(globalGrid, globalContext);
-    button.style.padding = '0px 83px';
+    startStop.style.padding = '0px 83px';
     startStop.textContent = "Pause";
     isStarted = 1;
   }
@@ -219,7 +219,7 @@ clearButton.onclick = function() {
   //do stuff
   clearTimeout(reqTimeout);
   drawGrid(eraseGrid(globalGrid), globalContext);
-  button.style.padding = '0px 92px';
+  startStop.style.padding = '0px 92px';
   startStop.textContent = "Start";
   genCount.innerHTML = 0;
   isStarted = 0;
