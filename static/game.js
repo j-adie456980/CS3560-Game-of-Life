@@ -1,11 +1,13 @@
 const gridSize = 500;
+const miniGridSize = 300
 const numRowCells = 50;
 const cellLength = (gridSize/numRowCells);
+const miniCellLength = (miniGridSize/numRowCells);
 var reqTimeout;
 var isStarted = 0;
 var speed = 50;
 var genCount = document.getElementById("genCount");
-var globalGrid;
+var globalGrid; 
 var globalContext;
 var DMButton = document.querySelector('.DMButton');
 var dark = false;
@@ -37,6 +39,19 @@ const drawGrid = (grid, contextIn) => {
   globalContext = contextIn;
 }
 
+const drawMiniGrid = (grid, contextIn) => {
+  contextIn.clearRect(0, 0, miniGridSize, miniGridSize)
+  let cellState, xPos, yPos;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid.length; j++) {
+      xPos = (miniCellLength * i); yPos = (miniCellLength * j); //set positioning for drawing cells
+      contextIn.strokeRect(xPos, yPos, miniCellLength, miniCellLength) //draw outline for a box
+      cellState = grid[i][j];
+      if (cellState) contextIn.fillRect(xPos, yPos, miniCellLength, miniCellLength) //fill cell if state is alive
+    }
+  }
+}
+
 const getEmptyGrid = () => {
   const grid = new Array(numRowCells) //create row
   for (let i = 0; i < grid.length; i++) {
@@ -46,6 +61,7 @@ const getEmptyGrid = () => {
   return grid;
 }
 
+var prevGlobalGrid = getEmptyGrid();
 
 const drawingLetters = (grid) => {
   for(let j = 4; j < 14; j++) grid[1][j] = true;
@@ -194,6 +210,7 @@ speedSlider.oninput = function() {
 
 function RunSimulation (grid, context) {
   drawGrid(grid, context);
+  if(globalGrid) prevGlobalGrid = globalGrid;
   const newGrid = globalGrid = GetNewGrid(grid); 
   genCount.innerHTML++;
   reqTimeout = setTimeout(function(){window.requestAnimationFrame(RunSimulation(newGrid, context))}, (2100/speed));
@@ -252,7 +269,7 @@ uploadButton.onclick = function() {
 $(function() {  // SEND DATA TO FLASK
   $('#mini-upload').bind('click', function() {
     $.getJSON($SCRIPT_ROOT + '/UploadGrid',  // file path
-    {userGridName: gridName, userGridState: JSON.stringify(globalGrid)}, // data being sent
+    {userGridName: gridName, userGridState: JSON.stringify(prevGlobalGrid)}, // data being sent
     console.log("Upload Success"));  // success message
     return false;
   });
@@ -275,24 +292,55 @@ window.onclick = function(event) {
   else if (event.target == gridsModal) gridsModal.style.display = "none";
 };
 
-const loadData = () => {
-  var canvas, grid, gridName, context;
+const loadData = function(){
+  var canvas, grid, gridName, context, clone, original;
+  //document.querySelector('.user-grid-pair').remove()
+  original = document.getElementById("user-grid-pair");
+  if (userGrids.length > 0){
+    for (var i = 0; i < 2; i++){  // first pair of grids
+      //set values for user grids on screen
+      gridName = userGrids[i].GridName;
+      grid = JSON.parse(userGrids[i].GridState);
+      if (i%2 == 0){
+        canvas = original.querySelector('.left-grid-container').querySelector('.mini-grid')
+        original.querySelector('.left-grid-container').querySelector('.user-grid-name').textContent = gridName;
+      } 
+      else{
+        canvas = original.querySelector('.right-grid-container').querySelector('.mini-grid')
+        original.querySelector('.right-grid-container').querySelector('.user-grid-name').textContent = gridName;
+      } 
+      canvas.title = i;
+      context = canvas.getContext('2d');
+      context.strokeStyle = "grey"; context.fillStyle = "black"
+      drawMiniGrid(grid, context);
+    }
 
-  for (let i = 0; i < 2; i++){
-    gridName = userGrids[i].GridName;
-    grid = JSON.parse(userGrids[i].GridState);
-    if (i%2 == 0){
-      canvas = document.getElementById('left-canvas');
-      document.getElementById('user-grid-name-left').textContent = gridName;
-    } 
-    else{
-      canvas = document.getElementById('right-canvas');
-      document.getElementById('user-grid-name-right').textContent = gridName;
-    } 
-    canvas.title = i;
-    context = canvas.getContext('2d');
-    context.strokeStyle = "grey"; context.fillStyle = "black"
-    drawGrid(grid, context);
+    for (var i = 2; i < userGrids.length; i++){  // rest of grids
+      //set values for user grids on screen
+      gridName = userGrids[i].GridName;
+      grid = JSON.parse(userGrids[i].GridState);
+      if (i%2 == 0){
+        clone = original.cloneNode(true);
+        document.querySelector('.user-grids-window').appendChild(clone);
+        canvas = clone.querySelector('.left-grid-container').querySelector('.mini-grid')
+        clone.querySelector('.left-grid-container').querySelector('.user-grid-name').textContent = gridName;
+      } 
+      else{
+        canvas = clone.querySelector('.right-grid-container').querySelector('.mini-grid')
+        clone.querySelector('.right-grid-container').querySelector('.user-grid-name').textContent = gridName;
+      } 
+      canvas.title = i;
+      context = canvas.getContext('2d');
+      context.strokeStyle = "grey"; context.fillStyle = "black"
+      drawMiniGrid(grid, context);
+    }
+    //For odd numbers of grids
+    if(userGrids.length%2 != 0){
+      clone.querySelector('.right-grid-container').style.display = "none";
+    }
+  }
+  else{
+    document.querySelector('.user-grid-pair').style.display = "none";
   }
 }
 
