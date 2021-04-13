@@ -293,29 +293,29 @@ window.onclick = function(event) {
 };
 
 const loadData = function(){
-  var canvas, grid, gridName, context, clone, original;
-  //document.querySelector('.user-grid-pair').remove()
+  var canvas, grid, gridName, context, clone, original, ID;
   original = document.getElementById("user-grid-pair");
   if (userGrids.length > 0){
-    for (var i = 0; i < 2; i++){  // first pair of grids
+    ID = userGrids.length;
+    userGrids.reverse();
+    for (var i = 0; i < 2; i++, ID--){  // first pair of grids
       //set values for user grids on screen
       gridName = userGrids[i].GridName;
       grid = JSON.parse(userGrids[i].GridState);
       if (i%2 == 0){
         canvas = original.querySelector('.left-grid-container').querySelector('.mini-grid')
-        original.querySelector('.left-grid-container').querySelector('.user-grid-name').textContent = gridName;
+        original.querySelector('.left-grid-container').querySelector('.user-grid-name').textContent = `${ID} \xa0\xa0|\xa0\xa0${gridName}`;
       } 
       else{
         canvas = original.querySelector('.right-grid-container').querySelector('.mini-grid')
-        original.querySelector('.right-grid-container').querySelector('.user-grid-name').textContent = gridName;
+        original.querySelector('.right-grid-container').querySelector('.user-grid-name').textContent = `${ID} \xa0\xa0|\xa0\xa0${gridName}`;
       } 
-      canvas.title = i;
       context = canvas.getContext('2d');
       context.strokeStyle = "grey"; context.fillStyle = "black"
       drawMiniGrid(grid, context);
     }
 
-    for (var i = 2; i < userGrids.length; i++){  // rest of grids
+    for (var i = 2; i < userGrids.length; i++, ID--){  // rest of grids
       //set values for user grids on screen
       gridName = userGrids[i].GridName;
       grid = JSON.parse(userGrids[i].GridState);
@@ -323,23 +323,21 @@ const loadData = function(){
         clone = original.cloneNode(true);
         document.querySelector('.user-grids-window').appendChild(clone);
         canvas = clone.querySelector('.left-grid-container').querySelector('.mini-grid')
-        clone.querySelector('.left-grid-container').querySelector('.user-grid-name').textContent = gridName;
+        clone.querySelector('.left-grid-container').querySelector('.user-grid-name').textContent = `${ID} \xa0\xa0|\xa0\xa0${gridName}`; 
       } 
       else{
         canvas = clone.querySelector('.right-grid-container').querySelector('.mini-grid')
-        clone.querySelector('.right-grid-container').querySelector('.user-grid-name').textContent = gridName;
+        clone.querySelector('.right-grid-container').querySelector('.user-grid-name').textContent = `${ID} \xa0\xa0|\xa0\xa0${gridName}`;
       } 
-      canvas.title = i;
       context = canvas.getContext('2d');
       context.strokeStyle = "grey"; context.fillStyle = "black"
       drawMiniGrid(grid, context);
     }
-    //For odd numbers of grids
-    if(userGrids.length%2 != 0){
+    if(userGrids.length%2 != 0){  //For odd numbers of grids
       clone.querySelector('.right-grid-container').style.display = "none";
     }
   }
-  else{
+  else{  //For empty database
     document.querySelector('.user-grid-pair').style.display = "none";
   }
 }
