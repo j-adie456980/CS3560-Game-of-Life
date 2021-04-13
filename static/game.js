@@ -247,7 +247,6 @@ DMButton.onclick = function() {
 //CHANGE THIS (IF THE SIMULATION IS RUNNING THIS BUTTON IS UNAVAILABLE)
 uploadButton.onclick = function() {
   uploadModal.style.display = "block";
-  console.log(JSON.stringify(globalGrid));
 };
 
 $(function() {  // SEND DATA TO FLASK
@@ -276,6 +275,27 @@ window.onclick = function(event) {
   else if (event.target == gridsModal) gridsModal.style.display = "none";
 };
 
+const loadData = () => {
+  var canvas, grid, gridName, context;
+
+  for (let i = 0; i < 2; i++){
+    gridName = userGrids[i].GridName;
+    grid = JSON.parse(userGrids[i].GridState);
+    if (i%2 == 0){
+      canvas = document.getElementById('left-canvas');
+      document.getElementById('user-grid-name-left').textContent = gridName;
+    } 
+    else{
+      canvas = document.getElementById('right-canvas');
+      document.getElementById('user-grid-name-right').textContent = gridName;
+    } 
+    canvas.title = i;
+    context = canvas.getContext('2d');
+    context.strokeStyle = "grey"; context.fillStyle = "black"
+    drawGrid(grid, context);
+  }
+}
+
 window.onload = () => {
   const canvas = document.getElementById('canvas');
   const context = canvas.getContext('2d');
@@ -286,4 +306,5 @@ window.onload = () => {
   globalContext = context;
   output.innerHTML = speedSlider.value;
   genCount.innerHTML = 0;
+  loadData();
 }

@@ -269,12 +269,12 @@
             border-top: 2px solid var(--grid-border);
             color: var(--grid-border);
         }
-        .left-grid{
+        canvas[name="left-grid"]{
             background-color: var(--grid-grid-bg);
             border: 2px solid var(--grid-border);
             float: left;
         }
-        .right-grid{
+        canvas[name="right-grid"]{
             background-color: var(--grid-grid-bg);
             border: 2px solid var(--grid-border);
             float: right;
@@ -342,22 +342,12 @@
                 <div class="user-grids-window">
                     <div class="user-grid-pair">
                         <div class="left-grid-container">
-                            <h3 class="user-grid-name">Title</h3>
-                            <canvas class="left-grid" id="left-canvas" height="300px" width="300px"></canvas>
+                            <h3 id="user-grid-name-left" class="user-grid-name">Title</h3>
+                            <canvas name="left-grid" class="mini-grid" id="left-canvas" height="300px" width="300px"></canvas>
                         </div>
                         <div class="right-grid-container">
-                            <h3 class="user-grid-name">Title</h3>
-                            <canvas class="right-grid" id="right-canvas" height="300px" width="300px"></canvas>
-                        </div>
-                    </div>
-                    <div class="user-grid-pair">
-                        <div class="left-grid-container">
-                            <h3 class="user-grid-name">Title</h3>
-                            <canvas class="left-grid" id="left-canvas" height="300px" width="300px"></canvas>
-                        </div>
-                        <div class="right-grid-container">
-                            <h3 class="user-grid-name">Title</h3>
-                            <canvas class="right-grid" id="right-canvas" height="300px" width="300px"></canvas>
+                            <h3 id="user-grid-name-right" class="user-grid-name">Title</h3>
+                            <canvas name="right-grid" class="mini-grid" id="right-canvas" height="300px" width="300px"></canvas>
                         </div>
                     </div>
                 </div>
