@@ -210,7 +210,7 @@ loadButtonModal.onclick = function(){  // how the button is called
   console.log(globalGrid);
   drawGrid(globalGrid, globalContext);
   gridsModal.style.display = "none";
-  genCount = 0;
+  genCount.innerHTML = 0;
 };
 
 $("#canvas").mousedown(function(e) {
@@ -229,7 +229,8 @@ function FillCells (e) {
   var x = Math.floor((e.pageX-xOffset) / cellLength)-1;
   var y = Math.floor((e.pageY-yOffset) / cellLength)-1;
   prevGlobalGrid[x][y] = globalGrid[x][y] = true;
-  globalContext.fillStyle = mouseButton == 1 ? "black" : "white";
+  if(dark){globalContext.fillStyle = mouseButton == 1 ? "#00FF00" : "#303030";}
+  else{globalContext.fillStyle = mouseButton == 1 ? "black" : "white";}
   globalContext.fillRect(x*cellLength, y*cellLength, cellLength, cellLength);
 }
 
