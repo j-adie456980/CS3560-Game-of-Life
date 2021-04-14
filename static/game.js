@@ -143,8 +143,7 @@ startStop.onclick = function() {
     isStarted = 1;
     uploadButton.disabled = true;
     gridsButton.disabled = true;
-    uploadButton.style.backgroundColor = "grey";
-    gridsButton.style.backgroundColor = "grey";
+    document.body.classList.toggle("disabledButton");
   }
   else if(isStarted == 1) //started state
   {
@@ -154,8 +153,7 @@ startStop.onclick = function() {
     isStarted = 2;
     uploadButton.disabled = false;
     gridsButton.disabled = false;
-    if(dark){uploadButton.style.backgroundColor = "#00FF00"; gridsButton.style.backgroundColor = "#00FF00";}
-    else{uploadButton.style.backgroundColor = "#016F54"; gridsButton.style.backgroundColor = "#016F54";}
+    document.body.classList.toggle("disabledButton");
   }
   else  //paused state
   {
@@ -165,8 +163,7 @@ startStop.onclick = function() {
     isStarted = 1;
     uploadButton.disabled = true;
     gridsButton.disabled = true;
-    uploadButton.style.backgroundColor = "grey";
-    gridsButton.style.backgroundColor = "grey";
+    document.body.classList.toggle("disabledButton");
   }
 };
 
@@ -178,10 +175,10 @@ clearButton.onclick = function() {
   startStop.textContent = "Start";
   genCount.innerHTML = 0;
   isStarted = 0;
+  if(uploadButton.disabled)
+    document.body.classList.toggle("disabledButton");
   uploadButton.disabled = false;
   gridsButton.disabled = false;
-  if(dark){uploadButton.style.backgroundColor = "#00FF00"; gridsButton.style.backgroundColor = "#00FF00";}
-  else{uploadButton.style.backgroundColor = "#016F54"; gridsButton.style.backgroundColor = "#016F54";}
 };
 
 //dark mode button
@@ -189,18 +186,8 @@ DMButton.onclick = function() {
   dark = !(dark);
   var element = document.body;
   element.classList.toggle("darkmode");
-  if(dark){
-    globalContext.strokeStyle = "black";
-    globalContext.fillStyle = "#00FF00";
-    uploadButton.style.backgroundColor = "#00FF00";
-    gridsButton.style.backgroundColor = "#00FF00";
-  }
-  else{
-    globalContext.strokeStyle = "grey";
-    globalContext.fillStyle = "black";
-    uploadButton.style.backgroundColor = "#016F54";
-    gridsButton.style.backgroundColor = "#016F54";
-  }
+  if(dark){globalContext.strokeStyle = "black"; globalContext.fillStyle = "#00FF00";}
+  else{globalContext.strokeStyle = "grey"; globalContext.fillStyle = "black";}
 };
 
 //upload button
