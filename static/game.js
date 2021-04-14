@@ -21,6 +21,7 @@ var button = document.querySelector('button');
 var uploadModal = document.getElementById("upload-modal");
 var gridsModal = document.getElementById("grids-modal");
 var uploadButtonModal = document.querySelector('.mini-upload-btn');
+var loadButtonModal = document.querySelector('.mini-load-btn');
 var gridName;
 
 console.log(userGrids);
@@ -266,19 +267,32 @@ uploadButton.onclick = function() {
   uploadModal.style.display = "block";
 };
 
+// gets gridName
+// Mini upload button
+uploadButtonModal.onclick = function(){  // how the button is called
+  gridName = document.getElementById("t-box").value;
+};
+
+// Mini upload button
+loadButtonModal.onclick = function(){  // how the button is called
+  const index = document.getElementById("grid-index-box").value;
+  prevGlobalGrid = globalGrid = JSON.parse(userGrids[userGrids.length-index].GridState);
+  console.log(prevGlobalGrid);
+  console.log(globalGrid);
+  drawGrid(globalGrid, globalContext);
+  gridsModal.style.display = "none";
+  genCount = 0;
+};
+
 $(function() {  // SEND DATA TO FLASK
   $('#mini-upload').bind('click', function() {
     $.getJSON($SCRIPT_ROOT + '/UploadGrid',  // file path
     {userGridName: gridName, userGridState: JSON.stringify(prevGlobalGrid)}, // data being sent
     console.log("Upload Success"));  // success message
+    uploadModal.style.display = "none";
     return false;
   });
 });
-
-// gets gridName
-uploadButtonModal.onclick = function(){  // how the button is called
-  gridName = document.getElementById("t-box").value;
-};
 
 //grids button
 //CHANGE THIS (IF THE SIMULATION IS RUNNING THIS BUTTON IS UNAVAILABLE)

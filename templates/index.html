@@ -279,7 +279,7 @@
             border: 2px solid var(--grid-border);
             float: right;
         }
-        .mini-upload-btn, .mini-grids-btn{
+        .mini-upload-btn{
             display: block;
             margin: 0 auto;
             margin-bottom: 5%;
@@ -299,6 +299,42 @@
         }
         input:focus, textarea:focus, select:focus{
             outline: none;
+        }
+        .load-grid-container{
+            margin: 3% auto;
+            width: 50%;
+            height: 50px;
+        }
+        .mini-load-btn{
+            display: block;
+            font-family: 'Sarala';
+            font-size: 30px;
+            background-color: var(--upload-border);
+            border: none;
+            color: var(--mini-upload);
+            padding: 0px 10px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            float: left;
+        }
+        .t-box-label{
+            color: #016F54;
+            font-family: 'Sarala';
+            font-size: 30px;
+            padding-left: 15%;
+        }
+        .load-text-box {
+            display: block;
+            font-family: 'Sarala';
+            font-size: 26px; 
+            text-align: left;
+            text-indent: 10%;
+            background-color: var(--upload-bg);
+            border: none;
+            border-bottom: 4px solid var(--upload-border);
+            float: right;
+            width: 50%;
         }
     </style>
 </head>
@@ -351,7 +387,11 @@
                         </div>
                     </div>
                 </div>
-                <input class = "mini-grids-btn" type="submit" value="Load">
+                <div class="load-grid-container">
+                    <label class="t-box-label" for="mini-load-btn"># : </label>
+                    <input class = "mini-load-btn" id="mini-load-btn" type="submit" value="Load">
+                    <input class = "load-text-box" type="text" id="grid-index-box" name="grid-index-box">
+                </div>
             </div>
         </div>
         <script>var userGrids = JSON.parse('{{ userGrids | tojson | safe}}');</script>
