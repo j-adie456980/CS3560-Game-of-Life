@@ -203,24 +203,22 @@ loadButtonModal.onclick = function(){  // how the button is called
 $("#canvas").mousedown(function(e) {
   mouseDown = true;
   mouseButton = e.which;
-  var x = Math.floor((e.pageX-xOffset) / cellLength)-1;
-  var y = Math.floor((e.pageY-yOffset) / cellLength)-1;
-  prevGlobalGrid[x][y] = globalGrid[x][y] = true;
-  globalContext.fillStyle = mouseButton == 1 ? "black" : "white";
-  globalContext.fillRect(x*cellLength, y*cellLength, cellLength, cellLength);
+  FillCells(e);
 }).bind('mouseup', function() {
   mouseDown = false;
 });
 
 $("#canvas").mousemove(function(e) {
-  if (mouseDown) {
-      var x = Math.floor((e.pageX-xOffset) / cellLength)-1;
-      var y = Math.floor((e.pageY-yOffset) / cellLength)-1;
-      prevGlobalGrid[x][y] = globalGrid[x][y] = true;
-      globalContext.fillStyle = mouseButton == 1 ? "black" : "white";
-      globalContext.fillRect(x*cellLength, y*cellLength, cellLength, cellLength);
-  }
+  if (mouseDown) FillCells(e);
 });
+
+function FillCells (e) {
+  var x = Math.floor((e.pageX-xOffset) / cellLength)-1;
+  var y = Math.floor((e.pageY-yOffset) / cellLength)-1;
+  prevGlobalGrid[x][y] = globalGrid[x][y] = true;
+  globalContext.fillStyle = mouseButton == 1 ? "black" : "white";
+  globalContext.fillRect(x*cellLength, y*cellLength, cellLength, cellLength);
+}
 
 $(function() {  // SEND DATA TO FLASK
   $('#mini-upload').bind('click', function() {
