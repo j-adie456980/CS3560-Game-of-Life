@@ -19,6 +19,10 @@
             --button: white;
             --button-hover: #035c46;
             --rectangle: #016F54;
+            --UPLOAD-bg: #016F54;
+            --GRIDS-bg: #016F54;
+            --UPLOAD-hover: #035c46;
+            --GRIDS-hover: #035c46;
             --upload-bg: rgb(228, 228, 228);
             --upload-border: #016F54;
             --upload-text: #016F54;
@@ -42,6 +46,10 @@
             --button: black;
             --button-hover: #00CC00;
             --rectangle: #00FF00;
+            --UPLOAD-bg: #00FF00;
+            --GRIDS-bg: #00FF00;
+            --UPLOAD-hover: #00CC00;
+            --GRIDS-hover: #00CC00;
             --upload-bg: #444444;
             --upload-border: #00FF00;
             --upload-text: #00FF00;
@@ -50,6 +58,12 @@
             --grid-bg: #303030;
             --grid-border: #00FF00;
             --grid-grid-bg: black;
+        }
+        .disabledButton {
+            --UPLOAD-bg: grey;
+            --GRIDS-bg: grey;
+            --UPLOAD-hover: grey;
+            --GRIDS-hover: grey;
         }
         body {
             background-color: var(--background-color);
@@ -172,6 +186,18 @@
         }
         button:hover {
             background-color: var(--button-hover);
+        }
+        .grids {
+            background-color: var(--GRIDS-bg);
+        }
+        .grids:hover {
+            background-color: var(--GRIDS-hover);
+        }
+        .upload {
+            background-color: var(--UPLOAD-bg);
+        }
+        .upload:hover {
+            background-color: var(--UPLOAD-hover);
         }
         .rectangle {
             position: absolute;
@@ -319,7 +345,7 @@
             float: left;
         }
         .t-box-label{
-            color: #016F54;
+            color: var(--upload-border);
             font-family: 'Sarala';
             font-size: 30px;
             padding-left: 15%;
@@ -359,8 +385,8 @@
             <slider-text>Speed: <span id="output"></span></slider-text>
         </div>
         <div class="btn-group-right">
-            <button class="grids" style= "padding: 0px 98px;">Grids</button>
-            <button class="upload" style= "padding: 0px 80px;">Upload</button>
+            <button class="grids" style="padding: 0px 98px;">Grids</button>
+            <button class="upload" style="padding: 0px 80px;">Upload</button>
         </div>
         <div id="upload-modal" class="modal">
             <div class="modal-content-u">
