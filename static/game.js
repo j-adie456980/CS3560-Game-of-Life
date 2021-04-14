@@ -171,6 +171,7 @@ startStop.onclick = function() {
 clearButton.onclick = function() {
   clearTimeout(reqTimeout);
   drawGrid(eraseGrid(globalGrid), globalContext);
+  prevGlobalGrid = eraseGrid(prevGlobalGrid);
   startStop.style.padding = '0px 92px';
   startStop.textContent = "Start";
   genCount.innerHTML = 0;
