@@ -189,6 +189,9 @@ DMButton.onclick = function() {
   element.classList.toggle("darkmode");
   if(dark){globalContext.strokeStyle = "black"; globalContext.fillStyle = "#00FF00";}
   else{globalContext.strokeStyle = "grey"; globalContext.fillStyle = "black";}
+
+  //redraw the grid with the new contexts
+  drawGrid(globalGrid, globalContext);
 };
 
 //upload button
