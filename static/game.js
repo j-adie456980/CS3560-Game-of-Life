@@ -209,7 +209,7 @@ uploadButtonModal.onclick = function(){  // how the button is called
 // Mini upload button
 loadButtonModal.onclick = function(){  // how the button is called
   const index = document.getElementById("grid-index-box").value;
-  prevGlobalGrid = globalGrid = JSON.parse(userGrids[userGrids.length-index].GridState);
+  prevGlobalGrid = globalGrid = BinaryToGrid(userGrids[userGrids.length-index].GridState);
   console.log(prevGlobalGrid);
   console.log(globalGrid);
   drawGrid(globalGrid, globalContext);
@@ -238,10 +238,34 @@ function FillCells (e) {
   globalContext.fillRect(x*cellLength, y*cellLength, cellLength, cellLength);
 }
 
+function ConvertToBinary (grid) {
+  var str = ""
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid.length; j++) {
+      if(grid[i][j] == true) str += "1";
+      else str += "0";
+    }
+  }
+  return str;
+}
+
+function BinaryToGrid (str) {
+  var k = 0;
+  var grid = getEmptyGrid();
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid.length; j++) {
+      if(str[k] == "1") grid[i][j] = true;
+      else grid[i][j] = false;
+      k += 1;
+    }
+  }
+  return grid;
+}
+
 $(function() {  // SEND DATA TO FLASK
   $('#mini-upload').bind('click', function() {
     $.getJSON($SCRIPT_ROOT + '/UploadGrid',  // file path
-    {userGridName: gridName, userGridState: JSON.stringify(prevGlobalGrid)}, // data being sent
+    {userGridName: gridName, userGridState: ConvertToBinary(prevGlobalGrid)}, // data being sent
     console.log("Upload Success"));  // success message
     uploadModal.style.display = "none";
     return false;
@@ -269,7 +293,7 @@ const loadData = function(){
     for (var i = 0; i < 2; i++, ID--){  // first pair of grids
       //set values for user grids on screen
       gridName = userGrids[i].GridName;
-      grid = JSON.parse(userGrids[i].GridState);
+      grid = BinaryToGrid(userGrids[i].GridState);
       if (i%2 == 0){
         canvas = original.querySelector('.left-grid-container').querySelector('.mini-grid')
         original.querySelector('.left-grid-container').querySelector('.user-grid-name').textContent = `${ID} \xa0\xa0|\xa0\xa0${gridName}`;
@@ -286,7 +310,7 @@ const loadData = function(){
     for (var i = 2; i < userGrids.length; i++, ID--){  // rest of grids
       //set values for user grids on screen
       gridName = userGrids[i].GridName;
-      grid = JSON.parse(userGrids[i].GridState);
+      grid = BinaryToGrid(userGrids[i].GridState);
       if (i%2 == 0){
         clone = original.cloneNode(true);
         document.querySelector('.user-grids-window').appendChild(clone);
