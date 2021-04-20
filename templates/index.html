@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Title</title>
+    <title>Conway's Game of Life</title>
     <link href="https://fonts.googleapis.com/css?family=Sarala" rel="stylesheet">
     <style>
         html {
@@ -98,7 +98,7 @@
             left: 0;
             right: 0;
             z-index: 0;
-            font-size: 60%;
+            font-size: 60px;
             font-family: 'Sarala';
             font-size: 44px; 
             background-color: var(--h1-bg);
@@ -156,19 +156,26 @@
             background: var(--slider-thumb);
             cursor: pointer;
         }
+        .buttons-container {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            bottom: 1%;
+            height: 80px;
+        }
         .btn-group-left {
             overflow: hidden;
-            position: absolute;
-            left: 4%;
-            top: 87%;
-            width: 100%;
+            position: relative;
+            float: left;
+            padding-left: 10px;
+            width: 650px;
         }
         .btn-group-right {
             overflow: hidden;
-            position: absolute;
-            left: 51%;
-            top: 87%;
-            width: 100%;
+            position: relative;
+            float: right;
+            padding-right: 10px;
+            width: 650px;
         }
         button {
             font-family: 'Sarala';
@@ -179,7 +186,12 @@
             text-align: center;
             text-decoration: none;
             cursor: pointer;
-            margin-left: 2.6vw;
+        }
+        .start-stop {
+            float: left;
+        }
+        .clear {
+            float: right;
         }
         button:focus {
             outline: none;
@@ -189,21 +201,23 @@
         }
         .grids {
             background-color: var(--GRIDS-bg);
+            float: left;
         }
         .grids:hover {
             background-color: var(--GRIDS-hover);
         }
         .upload {
             background-color: var(--UPLOAD-bg);
+            float: right;
         }
         .upload:hover {
             background-color: var(--UPLOAD-hover);
         }
         .rectangle {
             position: absolute;
-            top: 85.8%;
-            left: 49%;
-            height: 90px;
+            margin-top: 0%;
+            margin-left: 49.5%;
+            height: 65px;
             width: 8px;
             background-color: var(--rectangle);
         }
@@ -211,9 +225,8 @@
             position: absolute;
             top: 3.9%;
             left: 92%;
-            height: 8.5vh;
+            height: 8.5%;
             border-radius: 50%;
-            background-color: var(--button-bg);
             border: none;
             padding-top: 0.7%;
             padding-right: 0;
@@ -372,21 +385,23 @@
         <button class="DMButton">
             <img src="{{url_for('static', filename='images/crescent2.png')}}" width="50vw" height="50vh" margin="0.5vh">
         </button>
-        <div class="btn-group-left">
-            <button class="start-stop" style="padding: 0px 92px">Start</button>
-            <button class="clear" style="padding: 0px 92px">Clear</button>
+        <div class="buttons-container">
+            <div class="btn-group-left">
+                <button class="start-stop" style="padding: 0px 92px">Start</button>
+                <button class="clear" style="padding: 0px 92px">Clear</button>
+            </div>
+            <div class="rectangle"></div>
+            <div class="btn-group-right">
+                <button class="grids" style="padding: 0px 98px;">Grids</button>
+                <button class="upload" style="padding: 0px 80px;">Upload</button>
+            </div>
         </div>
-        <div class="rectangle"></div>
         <div>
             <generation-text>Generation: <span id="genCount"></span></generation-text>
         </div>
         <div class="slidecontainer">
             <input type="range" min="1" max="100" value="50" class="slider" id="speedSlider">
             <slider-text>Speed: <span id="output"></span></slider-text>
-        </div>
-        <div class="btn-group-right">
-            <button class="grids" style="padding: 0px 98px;">Grids</button>
-            <button class="upload" style="padding: 0px 80px;">Upload</button>
         </div>
         <div id="upload-modal" class="modal">
             <div class="modal-content-u">
