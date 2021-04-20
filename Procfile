@@ -1,0 +1,1 @@
+web: gunicorn game-of-life:app

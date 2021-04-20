@@ -3,11 +3,9 @@ from flask_mongoengine import MongoEngine
 import json
 app = Flask(__name__)
 
-app.config['MONGODB_SETTINGS'] = {
-    'db': 'Grids_Database',
-    'host': 'localhost',
-    'port': 27017
-}
+DB_URI = "mongodb+srv://user1:dookie12345@usergrids.iljie.mongodb.net/grid?retryWrites=true&w=majority"
+
+app.config["MONGODB_HOST"] = DB_URI
 
 db = MongoEngine()
 db.init_app(app)
@@ -35,4 +33,4 @@ def UploadGrid():
     return jsonify(gridName=userGridName)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=80)
