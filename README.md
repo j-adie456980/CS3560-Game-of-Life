@@ -34,3 +34,5 @@ Installation Instructions:
         >>   flask run 
 
 Github Repo Link:  https://github.com/j-adie456980/CS3560-Game-of-Life
+
+> This webapp works best for screens that have a resolution of 1920 x 1080 and bigger.  
