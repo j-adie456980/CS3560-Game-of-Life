@@ -1,7 +1,9 @@
-# CS3560-Game-of-Life
-
-Team:  Python 1
-
+# CS3560-Game-of-Life  
+  
+Try out our webbapp [here](https://flask-conways-game-of-life.herokuapp.com/) , or follow this link [https://flask-conways-game-of-life.herokuapp.com/](https://flask-conways-game-of-life.herokuapp.com/)  
+  
+Team:  Python 1  
+  
 Team Members:  
 		Justin Adie  
 		Bradey Lounsbury   
