@@ -217,25 +217,53 @@ loadButtonModal.onclick = function(){  // how the button is called
   genCount.innerHTML = 0;
 };
 
+//hopefully adding a function to allow cells to be deselected
+// $("#canvas").onclick(function(e) {
+//   FillCells(e, false);
+// });
+
 $("#canvas").mousedown(function(e) {
   mouseDown = true;
   mouseButton = e.which;
-  FillCells(e);
+  FillCells(e, false);
 }).bind('mouseup', function() {
   mouseDown = false;
 });
 
 $("#canvas").mousemove(function(e) {
-  if (mouseDown) FillCells(e);
+  if (mouseDown) FillCells(e, true);
 });
 
-function FillCells (e) {
+//updated to check if current cell should be 
+function FillCells (e, dragCheck) {
   var x = Math.floor((e.pageX-xOffset) / cellLength)-1;
   var y = Math.floor((e.pageY-yOffset) / cellLength)-1;
-  prevGlobalGrid[x][y] = globalGrid[x][y] = true;
-  if(dark){globalContext.fillStyle = mouseButton == 1 ? "#00FF00" : "#303030";}
-  else{globalContext.fillStyle = mouseButton == 1 ? "black" : "white";}
-  globalContext.fillRect(x*cellLength, y*cellLength, cellLength, cellLength);
+
+  //if clicking on a filled square without dragging
+  if (globalGrid[x][y] == true && !dragCheck) {
+    prevGlobalGrid[x][y] = globalGrid[x][y] = false;
+    if(dark){globalContext.fillStyle = mouseButton = "#303030"}
+    else{globalContext.fillStyle = mouseButton = "white";}
+    globalContext.fillRect(x*cellLength, y*cellLength, cellLength, cellLength);
+  }
+  else {//clicking a normal square
+    prevGlobalGrid[x][y] = globalGrid[x][y] = true;
+    if(dark){globalContext.fillStyle = mouseButton = "#00FF00";}
+    else{globalContext.fillStyle = mouseButton = "black";}
+    globalContext.fillRect(x*cellLength, y*cellLength, cellLength, cellLength);
+  }
+
+  //reset global style after using it to fill squares
+  if(dark) globalContext.fillStyle = mouseButton = "#00FF00";
+  else globalContext.fillStyle = mouseButton = "black";
+
+
+  // if(dark){globalContext.fillStyle = mouseButton == globalGrid[x][y] ? "#00FF00" : "#303030";}
+  // else{globalContext.fillStyle = mouseButton == globalGrid[x][y] ? "black" : "white";}
+  // globalContext.fillRect(x*cellLength, y*cellLength, cellLength, cellLength);
+
+  // if(dark){globalContext.fillStyle = mouseButton == "#00FF00";}
+  // else{globalContext.fillStyle = mouseButton == "black";}
 }
 
 function ConvertToBinary (grid) {
